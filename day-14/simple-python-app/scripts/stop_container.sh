@@ -1,5 +1,13 @@
 #!/bin/bash
 set -e
 
-# Stop the running container (if any)
-echo "Hi"
+# Get the container ID of the running container (if any)
+containerid=$(docker ps -q)
+
+# Check if there is any container running before trying to remove it
+if [ -n "$containerid" ]; then
+    echo "Stopping and removing container $containerid"
+    docker rm -f $containerid
+else
+    echo "No running container to stop."
+fi
